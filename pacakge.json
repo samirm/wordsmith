@@ -1,0 +1,22 @@
+{
+  "name": "wordsmith",
+  "version": "0.1.0",
+  "description": "A minimal Electron application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/samirm/wordsmith",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "",
+  "license": "",
+  "devDependencies": {
+    "electron": "^2.0.0"
+  }
+}
