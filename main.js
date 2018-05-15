@@ -1,4 +1,5 @@
 const electron = require('electron')
+const Quill = require('quill');
 // Module to control application life.
 const app = electron.app
 // Module to create native browser window.
@@ -21,6 +22,20 @@ function createWindow () {
     protocol: 'file:',
     slashes: true
   }))
+  
+  
+var quill = mainWindow.quill = new Quill('#editor', {
+  theme: 'snow',
+  modules: {
+    cursors: {
+      autoRegisterListener: false
+    },
+    history: {
+      userOnly: true
+    }
+  },
+  readOnly: true
+})
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
