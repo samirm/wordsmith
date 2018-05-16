@@ -1,0 +1,13 @@
+
+body {
+    padding: 50px;
+}
+
+fileViewer {
+    width: 60%;
+}
+  
+.editor {
+    width: 50%;
+    min-width: 600px;
+}
