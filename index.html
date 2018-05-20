@@ -24,25 +24,65 @@
 </body>
 
 <script>
-  var toolbarOptions = [
+  const fs = require('fs');
+  const Delta = Quill.import('delta');
+
+  let fileName = './savedFiles/file';
+  let placeholder = ['Type here...'];
+  let promptsFlag = true;
+  const prompts = [
+    'Is it possible to effectively communicate without a common language?',
+    'Does superluminal communication imply issues of causality?'];
+
+  if (promptsFlag) {
+    placeholder = prompts;
+  }
+
+  const toolbarOptions = [
+    [{ 'font': [] }],
     ['bold'],
     ['italic'],
     ['underline'],
     ['strike'],
-    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+    [{ 'list': 'ordered' }],
+    [{ 'list': 'bullet' }],
     [{ 'color': [] }],
-    [{ 'font': [] }],
     [{ 'align': [] }],
     ['clean']
   ];
+
+  // make max default to number of prompts
+  function getRandomInt(max = placeholder.length) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
+  console.log('int', getRandomInt());
+
   var quill = new Quill('#editor', {
     theme: 'snow',
     modules: {
       toolbar: toolbarOptions
-    }
+    },
+    placeholder: placeholder[getRandomInt()]
+  })
+
+  var change = new Delta();
+  quill.on('text-change', (delta) => {
+    change = change.compose(delta);
   });
-</script>
-<script>
-  require('./renderer.js');
+
+  setInterval(() => {
+    if (change.length() > 50) {
+      console.log('Saving changes... ', change);
+      fs.writeFile(fileName, quill.getContents().toString(), (err) => {
+        if (err) {
+          alert('Cannot create file. Error: ', err.message);
+        } else {
+          console.log('File successfully saved.');
+        }
+      });
+    }
+    change = new Delta();
+  })
 </script>
 </html>
