@@ -38,6 +38,10 @@
     placeholder = prompts;
   }
 
+  if (!fs.existsSync('./savedFiles')){
+    fs.mkdirSync('./savedFiles');
+}
+
   const toolbarOptions = [
     [{ 'font': [] }],
     ['bold'],
